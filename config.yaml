@@ -1,0 +1,9 @@
+---
+database:
+  host: myhost
+  user: myuser
+  password: mypass
+  dbname: mydb
+  port: 1234
+  engine: mssql
+  dataframe: True

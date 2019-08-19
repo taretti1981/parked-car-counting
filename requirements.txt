@@ -1,4 +1,9 @@
 numpy
 matplotlib
 opencv-python==3.4.5.20
+pandas==0.24.2
+psycopg2==2.7.6.1
+pyaml==19.4.1
+requests==2.22.0
+pymssql==2.1.4
 jupyterlab
