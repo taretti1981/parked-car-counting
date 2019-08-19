@@ -17,6 +17,7 @@
 
 import psycopg2
 import pymssql
+import mysql.connector
 import yaml
 import pandas as pd
 import math
@@ -58,8 +59,13 @@ class database_management:
                                             password=self.password, port=self.port)
                 self.curs = self.conn.cursor()
                 self.isconnected = True
-        except psycopg2.DatabaseError as e:
-            print(f'Error {e}')
+            elif self.engine=='mysql':
+                self.conn = mysql.connector.connect(host=self.host, database=self.dbname, user=self.user,
+                                            password=self.password, port=self.port)
+                self.curs = self.conn.cursor()
+                self.isconnected = True
+        except:
+            print('Error trying to connect to the database.')
 
         print(self.conn)
 
