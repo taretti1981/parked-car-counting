@@ -5,6 +5,8 @@ from src.sub_processes import *
 import matplotlib
 from matplotlib import pyplot as plt
 import time
+import src.database_management as db_class
+import pandas as pd
 
 #Write down conf, nms thresholds,inp width/height
 confThreshold = 0.25
@@ -71,4 +73,13 @@ for idx1,idx2 in enumerate(classIDs):
         if confidences[idx1] >= Tol:
             print(classes[classIDs[idx1]]+', '+str(confidences[idx1]))
             cont_corr += 1
+
 print(str(cont_corr) + ' vehicles correctly identified')
+
+db = db_class.database_management()
+db.get_connection()
+data = {'timestamp':[int(time.time())], 'number_cars':[cont_corr]}
+df = pd.DataFrame(data)
+headers = ['timestamp','number_cars']
+db.insert('parked_cars',headers,df)
+db.close()
