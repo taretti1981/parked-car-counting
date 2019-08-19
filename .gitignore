@@ -1,0 +1,13 @@
+*.idea
+.idea
+yolov3.weights
+.ipynb_checkpoints
+*.ipynb_checkpoints
+*.idea
+*.DS_Store
+temp
+__pycache__
+*.xlsx
+*.csv
+logfile
+config.xml
