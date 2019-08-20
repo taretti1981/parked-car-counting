@@ -5,5 +5,15 @@ database:
   password: mypass
   dbname: mydb
   port: 1234
-  engine: mssql
+  engine: mysql
   dataframe: True
+
+model_config:
+  modelConf: yolov3.cfg
+  modelWeights: yolov3.weights
+  confThreshold: 0.25
+  nmsThreshold: 0.40
+  inpWidth: 416
+  inpHeight: 416
+  tolerance: 0.35
+  classesFile: coco.names

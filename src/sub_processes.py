@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+import yaml
 
 def postprocess(frame, outs, classes, confThreshold, nmsThreshold):
     frameHeight = frame.shape[0]
@@ -73,3 +74,8 @@ def getOutputsNames(net):
 
     # Get the names of the output layers, i.e. the layers with unconnected outputs
     return [layersNames[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+
+def readConfig():
+    with open("config.yaml", 'r') as stream:
+        config = yaml.safe_load(stream)
+    return config

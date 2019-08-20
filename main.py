@@ -8,23 +8,27 @@ import time
 import src.database_management as db_class
 import pandas as pd
 
+
+# read config
+config = readConfig()
+
 #Write down conf, nms thresholds,inp width/height
-confThreshold = 0.25
-nmsThreshold = 0.40
-inpWidth = 416
-inpHeight = 416
-Tol = 0.35
+confThreshold = config['model_config']['confThreshold'] #0.25
+nmsThreshold = config['model_config']['nmsThreshold'] #0.40
+inpWidth = config['model_config']['inpWidth'] #416
+inpHeight = config['model_config']['inpHeight'] #416
+tolerance = config['model_config']['tolerance'] #0.35
 
 #Load names of classes and turn that into a list
-classesFile = "coco.names"
+classesFile = config['model_config']['classesFile'] #"coco.names"
 classes = None
 
 with open(classesFile,'rt') as f:
     classes = f.read().rstrip('\n').split('\n')
 
 #Model configuration
-modelConf = 'yolov3.cfg'
-modelWeights = 'yolov3.weights'
+modelConf = config['model_config']['modelConf'] #'yolov3.cfg'
+modelWeights = config['model_config']['modelWeights'] #'yolov3.weights'
 
 #Set up the net
 
@@ -54,32 +58,27 @@ outs = net.forward(getOutputsNames(net))
 
 classIDs, confidences = postprocess (frame, outs, classes, confThreshold, nmsThreshold)
 
-#show the image
-#cv.imshow(winName, frame)
-#cv.waitKey(0)
-#cv.destroyAllWindows()
-
-#fig, ax = plt.subplots(figsize=(40, 15))
-#webcam_preview = ax.imshow(frame)
-#webcam_preview.set_data(frame)
-#plt.draw()
-#plt.pause(0.05)
 cap.release()
 
+
+# filtering object according to the goal
 print(str(len(classIDs)) + ' objects identified')
 cont_corr = 0
 for idx1,idx2 in enumerate(classIDs):
     if classes[classIDs[idx1]]=='car' or classes[classIDs[idx1]]=='truck' or classes[classIDs[idx1]]=='motorbike' or classes[classIDs[idx1]]=='bus':
-        if confidences[idx1] >= Tol:
+        if confidences[idx1] >= tolerance:
             print(classes[classIDs[idx1]]+', '+str(confidences[idx1]))
             cont_corr += 1
 
 print(str(cont_corr) + ' vehicles correctly identified')
 
+# saving on the database
 db = db_class.database_management()
 db.get_connection()
 data = {'timestamp':[int(time.time())], 'number_cars':[cont_corr]}
 df = pd.DataFrame(data)
 headers = ['timestamp','number_cars']
 db.insert('parked_cars',headers,df)
+
+# closing db conn
 db.close()
