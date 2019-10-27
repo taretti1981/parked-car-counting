@@ -63,22 +63,42 @@ cap.release()
 
 # filtering object according to the goal
 print(str(len(classIDs)) + ' objects identified')
-cont_corr = 0
+car_cont = 0
+person_cont = 0
 for idx1,idx2 in enumerate(classIDs):
     if classes[classIDs[idx1]]=='car' or classes[classIDs[idx1]]=='truck' or classes[classIDs[idx1]]=='motorbike' or classes[classIDs[idx1]]=='bus':
         if confidences[idx1] >= tolerance:
             print(classes[classIDs[idx1]]+', '+str(confidences[idx1]))
-            cont_corr += 1
+            car_cont += 1
+    if classes[classIDs[idx1]] == 'person':
+        if confidences[idx1] >= tolerance:
+            print(classes[classIDs[idx1]]+', '+str(confidences[idx1]))
+            person_cont += 1
 
-print(str(cont_corr) + ' vehicles correctly identified')
+
+print(str(car_cont) + ' vehicles correctly identified')
+print(str(person_cont) + ' persons correctly identified')
+
+
+ts = int(time.time())
 
 # saving on the database
 db = db_class.database_management()
 db.get_connection()
-data = {'timestamp':[int(time.time())], 'number_cars':[cont_corr]}
+data = {'timestamp':[ts], 'count':[car_cont], 'type': [1]}
 df = pd.DataFrame(data)
-headers = ['timestamp','number_cars']
-db.insert('parked_cars',headers,df)
+headers = ['timestamp','count', 'type']
+db.insert('identified_objects',headers,df)
+
+
+# saving on the database
+db = db_class.database_management()
+db.get_connection()
+data = {'timestamp':[ts], 'count':[person_cont], 'type': [0]}
+df = pd.DataFrame(data)
+headers = ['timestamp','count','type']
+db.insert('identified_objects'
+          '',headers,df)
 
 # closing db conn
 db.close()
