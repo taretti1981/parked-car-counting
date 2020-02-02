@@ -25,30 +25,21 @@ You to set a database (mysql based). You only need two tables
 `
 CREATE TABLE identified_objects (
 
-
-  id int(11) NOT NULL AUTO_INCREMENT,
-  
+  id int(11) NOT NULL AUTO_INCREMENT,  
   
   timestamp bigint(8) NOT NULL,
   
-  
-  count smallint(2) NOT NULL,
-  
+  count smallint(2) NOT NULL, 
   
   type smallint(2) NOT NULL,
   
-  
   PRIMARY KEY (id),
-  
   
   KEY timestamp_IDX (timestamp) USING BTREE,
   
-  
   KEY identified_objects_FK (type),
   
-  
   CONSTRAINT identified_objects_FK FOREIGN KEY (type) REFERENCES object_types (type)
-  
   
 ) ENGINE=InnoDB AUTO_INCREMENT=32101 DEFAULT CHARSET=latin1
 `
