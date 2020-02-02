@@ -2,7 +2,9 @@
 ## OpenCV4 installation
 Follow the instruction to install OpenCV4. OpenCV4 contains already YOLO
 
-`https://www.pyimagesearch.com/2018/09/26/install-opencv-4-on-your-raspberry-pi/`
+`
+https://www.pyimagesearch.com/2018/09/26/install-opencv-4-on-your-raspberry-pi/
+`
 
 
 ## External File required 
@@ -11,7 +13,7 @@ Follow the instruction to install OpenCV4. OpenCV4 contains already YOLO
 curl https://pjreddie.com/media/files/yolov3.weights -o yolov3.weights
 `
 
-## database
+## Database
 You to set a database (mysql based). You only need two tables
 ### identified_objects
 `
