@@ -1,5 +1,18 @@
 # Read me
+## OpenCV4 installation
+Follow the instruction to install OpenCV4. OpenCV4 contains already YOLO
+
+`https://www.pyimagesearch.com/2018/09/26/install-opencv-4-on-your-raspberry-pi/`
+
+
+## External File required 
+- After pull the project, this file is required on the main folder
+`
+curl https://pjreddie.com/media/files/yolov3.weights -o yolov3.weights
+`
+
 ## database
+You to set a database (mysql based). You only need two tables
 ### identified_objects
 `
 CREATE TABLE `identified_objects` (
@@ -11,7 +24,7 @@ CREATE TABLE `identified_objects` (
   KEY `timestamp_IDX` (`timestamp`) USING BTREE,
   KEY `identified_objects_FK` (`type`),
   CONSTRAINT `identified_objects_FK` FOREIGN KEY (`type`) REFERENCES `object_types` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=32101 DEFAULT CHARSET=latin1
 `
 ### object types
 `
