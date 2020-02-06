@@ -27,8 +27,9 @@ if doit:
         import cv2 as cv
     except:
         doit = False
+        logfile.write("Error at importing packages\n")
 else:
-    logfile.write("Error at importing packages\n")
+    logfile.write("Importing packages not done because of previous error\n")
 
 # read config
 if doit:
@@ -38,8 +39,9 @@ if doit:
         print(config)
     except:
         doit = False
+        logfile.write("Error at reading config\n")
 else:
-    logfile.write("Error at reading config\n")
+    logfile.write("Reading config not done because of previous error\n")
 
 # Write down conf, nms thresholds,inp width/height
 if doit:
@@ -56,8 +58,9 @@ if doit:
 
     except:
         doit = False
+        logfile.write("Error at getting parameters\n")
 else:
-    logfile.write("Error at getting parameters\n")
+    logfile.write("Getting parameters not done because of previous error\n")
 
 if doit:
     try:
@@ -75,8 +78,9 @@ if doit:
         net.setPreferableTarget(cv.dnn.DNN_TARGET_CPU)
     except:
         doit = False
+        logfile.write("Error at setting model configuration\n")
 else:
-    logfile.write("Error at setting model configuration\n")
+    logfile.write("Setting the model not done because of previous error\n")
 
 # Process inputs
 # winName = 'DL OD with OpenCV'
@@ -105,8 +109,9 @@ if doit:
         cap.release()
     except:
         doit = False
+        logfile.write("Error at taking a look with the camera\n")
 else:
-    logfile.write("Error at taking a look with the camera\n")
+    logfile.write("Testing the camera not done because of previous error\n")
 
 # filtering object according to the goal
 if doit:
@@ -133,8 +138,9 @@ if doit:
         logfile.write(str(person_cont) + " persons correctly identified\n")
     except:
         doit = False
+        logfile.write("Error at processing image\n")
 else:
-    logfile.write("Error at processing image\n")
+    logfile.write("Processing image not done because of previous error\n")
 
 ts = int(time.time())
 
@@ -146,8 +152,9 @@ if doit:
         db.get_connection()
     except:
         doit = False
+        logfile.write("Database connection failed\n")
 else:
-    logfile.write("Database connection failed\n")
+    logfile.write("Database connection not done because of previous error\n")
 
 if doit:
     try:
@@ -165,8 +172,9 @@ if doit:
         #          '', headers, df)
     except:
         doit = False
+        logfile.write("Inserting into the Database failed\n")
 else:
-    logfile.write("Inserting into the Database failed\n")
+    logfile.write("Inserting into the Database not done because of previous error\n")
 
 try:
     # log insert
