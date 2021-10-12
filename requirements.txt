@@ -1,6 +1,6 @@
 numpy
 matplotlib
-opencv-python==3.4.5.20
+opencv-python==4.2.0.32
 pandas==0.24.2
 psycopg2==2.7.6.1
 pyaml==19.4.1
